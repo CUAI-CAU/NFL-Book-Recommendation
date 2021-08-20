@@ -38,7 +38,7 @@ login_button.send_keys('\n')
 #다시 페이지로
 browser.get("https://www.aladin.co.kr/shop/wbrowse.aspx?CID=50917") #알라딘 한국소설 페이지
 
-for p in range(0,1):
+for p in range(0,20):
     print(p)
     if p >= 1:
         p +=1
@@ -50,7 +50,7 @@ for p in range(0,1):
             continue
         p = p % 12
     time.sleep(1)
-    for i in range(0,1):
+    for i in range(0,25):
         time.sleep(1)
         book_list = browser.find_elements_by_css_selector('.ss_book_box li .bo3') #책 목록
         book = book_list[i] #책 하나씩 클릭
@@ -107,6 +107,7 @@ for p in range(0,1):
                 data.append(prefer)
         except:
             # data.append([])
+            browser.back()
             continue
 
         try:
@@ -123,6 +124,7 @@ for p in range(0,1):
                 data.append(prefer)
         except:
             # data.append([])
+            browser.back()
             continue
         
         try:
@@ -145,9 +147,9 @@ for p in range(0,1):
                     break
             time.sleep(1)
             contents = browser.find_element_by_css_selector('#Underline3Updates')
-            print(contents.text)
             data.append(contents.text)
         except:
+            browser.back()
             continue
         # 테스트용 콘솔에 출력
         pypi = None
