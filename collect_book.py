@@ -36,19 +36,25 @@ login_button = browser.find_element_by_css_selector('.left1_right a')
 login_button.send_keys('\n')
 
 #다시 페이지로
-browser.get("https://www.aladin.co.kr/shop/wbrowse.aspx?CID=50917") #알라딘 한국소설 페이지
-
+# browser.get("https://www.aladin.co.kr/shop/wbrowse.aspx?CID=50917") #알라딘 한국소설 페이지
+# browser.get("https://www.aladin.co.kr/shop/wbrowse.aspx?BrowseTarget=List&ViewRowsCount=25&ViewType=Detail&PublishMonth=0&SortOrder=2&page=21&Stockstatus=1&PublishDay=84&CID=50917&SearchOption=")
+browser.get("https://www.aladin.co.kr/shop/wbrowse.aspx?BrowseTarget=List&ViewRowsCount=25&ViewType=Detail&PublishMonth=0&SortOrder=2&page=41&Stockstatus=1&PublishDay=84&CID=50917&SearchOption=&CustReviewRankStart=&CustReviewRankEnd=&CustReviewCountStart=&CustReviewCountEnd=&PriceFilterMin=&PriceFilterMax=")
 for p in range(0,20):
     print(p)
-    if p >= 1:
-        p +=1
-    if p <=10:
-        p = p % 11
-    else:
-        p+=3
-        if p % 12 < 2:
-            continue
-        p = p % 12
+    # if p >= 1:
+    #     p +=1
+    # if p <=10:
+    #     p = p % 11
+    # else:
+    #     p+=3
+    #     if p % 12 < 2:
+    #         continue
+    #     p = p % 12
+    p+=3
+    if p % 12 < 2:
+        continue
+    p = p % 12
+    
     time.sleep(1)
     for i in range(0,25):
         time.sleep(1)
@@ -148,6 +154,9 @@ for p in range(0,20):
             time.sleep(1)
             contents = browser.find_element_by_css_selector('#Underline3Updates')
             data.append(contents.text)
+            if contents.text == '':
+                browser.back()
+                continue
         except:
             browser.back()
             continue
@@ -169,5 +178,5 @@ for p in range(0,20):
 print(datalist)
 selectdata = pd.DataFrame(datalist, columns=['제목', '작가', '출판사', '장르', '별점', '별점 수', '10대(여)','20대(여)','30대(여)','40대(여)','50대(여)','60대 이상(여)', '10대(남)', '20대(남)', '30대(남)', '40대(남)', '50대(남)','60대(남)','내용'])
 
-selectdata.to_excel("book.xlsx")
-selectdata.to_csv("book.csv")
+selectdata.to_excel("book2.xlsx")
+selectdata.to_csv("book2.csv")
